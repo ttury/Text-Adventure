@@ -1,1 +1,1 @@
-zombie1 : sad                           
+zombie1 : sad
