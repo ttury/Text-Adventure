@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <string.h>
+#include "event.h"
 
 int main() {
   
@@ -10,27 +11,7 @@ int main() {
   characters = fopen("characters.txt", "r+");
   items = fopen("items.txt", "r+");
   
-  printf("\nthere is a zombie!!\n");
-  printf("and your choce?\n");
-  printf("===================\n");
-  printf("1. fight\n");
-  printf("2. swearing\n");
-  printf("====================\n");
-  scanf("%d", &player_choice);
-  
-  switch(player_choice) {
-    case 1:
-      printf("you fought well, but zombie fought better\n");
-      printf("you dead\n");
-      return 1;
-      break;
-    case 2:
-      printf("zombie is sad in her heart.\n");
-      printf("you rubbish\n");
-      printf("you win!\n\n");
-      fprintf(characters, "zombie1 : sad\n");
-      break;
-  }
+  Battle_Zombie_1(characters, items);
   
   printf("there is another zombie!!\n");
   printf("and your choce?\n");
