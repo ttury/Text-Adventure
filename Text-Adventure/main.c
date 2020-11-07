@@ -5,12 +5,12 @@ int main() {
   
   int player_choice;
   char savetemp[100];
-  FILE *character;
+  FILE *characters;
   FILE *items;
-  character = fopen("character.txt", "r+");
+  characters = fopen("characters.txt", "r+");
   items = fopen("items.txt", "r+");
   
-  printf("there is a zombie!!\n");
+  printf("\nthere is a zombie!!\n");
   printf("and your choce?\n");
   printf("===================\n");
   printf("1. fight\n");
@@ -28,7 +28,7 @@ int main() {
       printf("zombie is sad in her heart.\n");
       printf("you rubbish\n");
       printf("you win!\n\n");
-      fprintf(character, "zombie1 : sad");
+      fprintf(characters, "zombie1 : sad\n");
       break;
   }
   
@@ -50,7 +50,7 @@ int main() {
       fprintf(items, "zombie\'s number\n");
       break;
     case 2:
-      fscanf(character, "zombie1 : %s", savetemp);
+      fscanf(characters, "zombie1 : %s", savetemp);
       if(strcmp(savetemp, "sad")) {
         printf("He is a boyfriend of the zombie you hurt\n");
         printf("He picked you up and drive you into the ground\n");
@@ -61,7 +61,7 @@ int main() {
       break;
   }
   
-  fclose(character);
+  fclose(characters);
   fclose(items);
   return 0;
 }
