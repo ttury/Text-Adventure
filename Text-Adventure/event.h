@@ -30,18 +30,157 @@ void Show_Map() {
   printf("====================\n");
 }
 
+void ClearReadBuffer()
+{
+ while(getchar()!='\n');//입력버퍼를 지우는 함
+}
+
 int Check_Save(FILE *savefile, char *checkdata) {
   char savetemp[MAX_LENGTH];
+  fpos_t move;
+  fgetpos(savefile, &move);
+
   while(fgets(savetemp, MAX_LENGTH, savefile) != NULL) {
     if(!strcmp(savetemp, checkdata)) {
+      fsetpos(savefile, &move);
       return 1;
     }
   }
+  fsetpos(savefile, &move);
   return 0;
 }
 
 void Nurse_Office(FILE *history, FILE *items) {
-  
+  int player_choice;
+
+  if(Check_Save(history, "보건실 클리어\n")) {
+    printf("보건실에 볼일은 없다.\n");
+    return;
+  }
+  printf("\n물을 마시기 위해 보건실에 들어왔다.\n");
+  printf("들어오자 마자 대량의 혈액 팩이 눈에 들어온다.\n");
+  printf("확진자의 치료를 위한 헌혈 켐페인 때 들여온 것 같다.\n");
+  printf("여차할 때 좀비 유인용으로 사용할 수 있을 것 같지만\n");
+  printf("나중에 뒷감당이 걱정된다.\n");
+  printf("어떻게 할까?");
+
+  printf("\n====================\n");
+  printf("1. 가방 가득 넣는다.\n");
+  printf("2. 포기하고 나간다.\n");
+  printf("=====================\n");
+
+  scanf("%d", &player_choice);
+
+  switch(player_choice) {
+    case 1:
+      printf("분명히 쓸 곳이 있을 것이다.\n");
+      fprintf(items, "혈액 팩\n");
+      printf("혈액 팩을 가지고 보건실에서 나왔다.\n");
+      fprintf(history, "보건실 클리어\n");
+      break;
+    case 2:
+      printf("벌점으로 끝나진 않을 듯 싶다.\n");
+      printf("역시 그만두고 보건실에서 나왔다.\n");
+      fprintf(history, "보건실 클리어\n");
+      break;
+  }
+}
+
+void Admin_Office(FILE *history, FILE *items) {
+
+}
+
+void Broadcast_Room(FILE *history, FILE *items) {
+
+}
+
+void Library(FILE *history, FILE *items) {
+
+}
+
+void Computer_Room(FILE *history, FILE *items) {
+
+}
+
+void Cafeteria(FILE *history, FILE *items) {
+
+}
+
+void Teacher_Office(FILE *history, FILE *items) {
+
+}
+
+int Floor_One(FILE *history, FILE *items) {
+  int player_choice;
+  if(Check_Save(history, "교무실 열쇠 필요 확인\n")) {
+    
+  }
+  else {
+    printf("1층으로 무사히 들어왔다.\n");
+    printf("어디로 움직일까?\n");
+
+    printf("\n====================\n");
+    printf("1. 2층으로 바로 올라간다.\n");
+    printf("2. 보건실에 들른다.\n");
+    printf("3. 행정실에 들른다.\n");
+    printf("=====================\n");
+
+    scanf("%d", &player_choice);
+    
+    switch(player_choice) {
+      case 1:
+        return 2;
+        break;
+      case 2:
+        Nurse_Office(history, items);
+        return 1;
+        break;
+      case 3:
+        Admin_Office(history, items);
+        return 1;
+    }
+  }
+  return 1;
+}
+
+int Floor_Two(FILE *history, FILE *items) {
+  return 2;
+}
+
+int Floor_Three(FILE *history, FILE *items) {
+  return 3;
+}
+
+int Floor_Four(FILE *history, FILE *items) {
+  return 4;
+}
+
+int Floor_Five(FILE *history, FILE *items) {
+  return 5;
+}
+
+void Player_Action(FILE *history, FILE *items) {
+
+  int floor = 1;
+  while(1) {
+    switch(floor) {
+      case 1:
+        floor = Floor_One(history, items);
+        break;
+      case 2:
+        floor = Floor_Two(history, items);
+        break;
+      case 3:
+        floor = Floor_Three(history, items);
+        break;
+      case 4:
+        floor = Floor_Four(history, items);
+        break;
+      case 5:
+        floor = Floor_Five(history, items);
+        break;
+    }
+  }
 }
 
 int Battle_Zombie_1(FILE *characters, FILE *items) {

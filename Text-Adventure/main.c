@@ -1,5 +1,4 @@
 #include <stdio.h>
-#include <strings.h>
 #include "event.h"
 
 int count = 0;
@@ -14,7 +13,7 @@ int main() {
   
   Prologue();
   Show_Map();
-  if(Check_Save(history, "zombie was moved\n")) printf("ok\n");
+  Player_Action(history, items);
   
   fclose(history);
   fclose(items);
