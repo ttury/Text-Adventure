@@ -11,9 +11,11 @@ int main() {
 
   int player_choice;
 
-  printf("대전고 소프트웨어 동아리 C#의 Text Adventure 게임에 오신 것을 환영합니다.\n");
+  printf("\n대전고 소프트웨어 동아리 C#의 Text Adventure 게임에 오신 것을 환영합니다.\n\n");
+  printf("=======================\n");
   printf("1. 이어하기\n");
   printf("2. 새로 시작하기\n");
+  printf("=======================\n");
   scanf("%d", &player_choice);
 
   switch (player_choice) {

@@ -50,11 +50,25 @@ int Check_Save(FILE *savefile, char *checkdata) {
   return 0;
 }
 
+void Escape(FILE* history, FILE* items) {
+    if (Check_Save(items, "핸드폰\n")) {
+        printf("\n핸드폰을 가지고 무사히 학교를 탈출했다.\n");
+        printf("힘든 때도 있었고 포기하고 싶은 때도 있었지만\n");
+        printf("결국 임무를 완수하는 데 성공했다.\n\n");
+        printf("크으, 역시 나다.\n");
+        fprintf_Flush(history, "게임 클리어\n");
+    }
+    else {
+        printf("\n핸드폰을 가지고 탈출하지 않으면 의미가 없다.\n");
+        printf("핸드폰은 아직도 혼자 춥고 어두운 교무실에서 내가 데리러 오기를 기다리고 있다.\n");
+    }
+}
+
 void Nurse_Office(FILE *history, FILE *items) {
   int player_choice;
 
   if(Check_Save(history, "보건실 클리어\n")) {
-    printf("보건실에 볼일은 없다.\n");
+    printf("\n보건실에 볼일은 없다.\n");
     return;
   }
   printf("\n물을 마시기 위해 보건실에 들어왔다.\n");
@@ -73,13 +87,13 @@ void Nurse_Office(FILE *history, FILE *items) {
 
   switch(player_choice) {
     case 1:
-      printf("분명히 쓸 곳이 있을 것이다.\n");
+      printf("\n분명히 쓸 곳이 있을 것이다.\n");
       fprintf_Flush(items, "혈액 팩\n");
       printf("혈액 팩을 가지고 보건실에서 나왔다.\n");
       fprintf_Flush(history, "보건실 클리어\n");
       break;
     case 2:
-      printf("벌점으로 끝나진 않을 듯 싶다.\n");
+      printf("\n벌점으로 끝나진 않을 듯 싶다.\n");
       printf("역시 그만두고 보건실에서 나왔다.\n");
       break;
   }
@@ -93,17 +107,18 @@ void Admin_Office(FILE *history, FILE *items) {
         return;
     }
     if (Check_Save(history, "교무실 열쇠 필요 확인\n")) {
-        printf("드디어 행정실에 도착했다.\n");
+        printf("\n드디어 행정실에 도착했다.\n");
         printf("열쇠함의 위치도 찾았다.\n\n");
 
         printf("어떻게 할까?\n");
-        scanf("%d", &player_choice);
 
         printf("\n====================\n");
         printf("1. 교무실 열쇠를 가져간다.\n");
         printf("2. 5층 교무실 열쇠를 가져간다.\n");
         printf("3. 내 핸드폰이 숨겨져 있는 5층 교무실 열쇠를 가져간다.\n");
         printf("=====================\n");
+
+        scanf("%d", &player_choice);
 
         switch (player_choice) {
         case 1:
@@ -127,7 +142,7 @@ void Admin_Office(FILE *history, FILE *items) {
         }
     }
     else {
-        printf("행정실 쪽 중앙현관에 좀비가 몇명 돌아다니고 있다.\n");
+        printf("\n행정실 쪽 중앙현관에 좀비가 몇명 돌아다니고 있다.\n");
         printf("목숨을 걸고서 행정실에 갈 필요는 없을 것 같다.\n");
     }
 }
@@ -135,7 +150,12 @@ void Admin_Office(FILE *history, FILE *items) {
 void Broadcast_Room(FILE *history, FILE *items) {
     int player_choice;
 
-    if (Check_Save(history, "도서관 좀비 정보 확인\n")) {
+    if (Check_Save(history, "방송실 급식 방송\n")) {
+        printf("\n방송실에 더 이상 볼일은 없다.\n");
+        return;
+    }
+
+    else if (Check_Save(history, "도서관 좀비 정보 확인\n")) {
         printf("\n좀비가 감염 전의 기억을 가지고 있다는 것을 고려하자.\n\n");
         printf("지금 학교에 있는 좀비는 대부분 원래 학생이었다.\n");
         printf("학생인 이상 급식종 소리에 반응하지 않을리 없다.\n\n");
@@ -230,8 +250,8 @@ void Computer_Room(FILE *history, FILE *items) {
     int player_choice;
 
     if (Check_Save(history, "교무실 열쇠 필요 확인\n")) {
-        if (Check_Save(items, "EMP 장치")) {
-            printf("컴퓨터실에 더 볼일은 없다.\n");
+        if (Check_Save(items, "EMP 장치\n")) {
+            printf("\n컴퓨터실에 더 볼일은 없다.\n");
             return;
         }
         printf("\n화면잠금 때문에 게임은 할 수 없지만\n");
@@ -272,8 +292,13 @@ void Computer_Room(FILE *history, FILE *items) {
 
 void Cafeteria(FILE *history, FILE *items) {
     int player_choice;
+    
+    if (Check_Save(history, "급식실 문 잠금\n")) {
+        printf("급식실에 더이상 다가가다간 내가 특식이 될 수도 있다.\n");
+        return;
+    }
 
-    if (Check_Save(history, "급식실 혈액 준비\n")) {
+    else if (Check_Save(history, "급식실 혈액 준비\n")) {
         if (Check_Save(history, "방송실 급식 방송\n")) {
             printf("\n좀비들이 무서운 속도로 피를 먹어치우고 있다.\n");
             printf("이대로라면 조금 위험할 것 같다.\n");
@@ -292,6 +317,7 @@ void Cafeteria(FILE *history, FILE *items) {
                 printf("급식실 문이 견고하진 않지만 시간을 조금이나마 벌어줄 것이다. 아마도?\n");
                 printf("급식실 문을 잠궜다.\n");
                 fprintf_Flush(history, "급식실 문 잠금\n");
+                break;
             case 2:
                 printf("\n좀비는 감염 전의 기억을 가지고 있다고 했다.\n");
                 printf("그렇다면 학주 선생님인 척 하는 것이 효과적일지도 모른다.\n");
@@ -303,6 +329,7 @@ void Cafeteria(FILE *history, FILE *items) {
             case 3:
                 printf("\n급식 다먹으면 매점 가겠지.\n");
                 printf("괜찮을 것 같다.\n");
+                break;
             }
         }
         else {
@@ -336,8 +363,84 @@ void Cafeteria(FILE *history, FILE *items) {
 }
 
 void Teacher_Office(FILE *history, FILE *items) {
-    if (Check_Save(history, "교무실 열쇠 필요 확인\n")) {
+    int player_choice;
 
+    if (Check_Save(history, "자물쇠 제거\n") && Check_Save(history, "세콤 무력화\n")) {
+        printf("\n세상에, 교무실 문이 열렸다.\n");
+        printf("내 핸드폰이 책상 위에 놓여 있다.\n");
+        printf("어떻게 할까?\n");
+        printf("\n====================\n");
+        printf("1. 명예롭게 임무를 완수한다.\n");
+        printf("2. 나쁜 짓 하면 안돼.\n");
+        printf("=====================\n");
+
+        scanf("%d", &player_choice);
+
+        switch (player_choice) {
+        case 1:
+            printf("\n인생의 동반자를 되찾았다.\n");
+            fprintf_Flush(items, "핸드폰\n");
+            printf("기쁜 마음으로 교무실을 나왔다.\n");
+            break;
+        case 2:
+            printf("\n어림도 없지!\n");
+            printf("\n인생의 동반자를 되찾았다.\n");
+            fprintf_Flush(items, "핸드폰\n");
+            printf("기쁜 마음으로 교무실을 나왔다.\n");
+        }
+
+    }
+
+    else if (Check_Save(history, "교무실 열쇠 필요 확인\n")) {
+        printf("\n교무실에 들어가기 위해서는 열쇠와 EMP 장치가 필요하다.\n");
+        printf("어떻게 할까?\n");
+
+        printf("\n====================\n");
+        printf("1. 열쇠로 자물쇠를 제거한다.\n");
+        printf("2. EMP 장치로 세콤을 마비시킨다.\n");
+        printf("3. 그만둔다.\n");
+        printf("=====================\n");
+        
+        scanf("%d", &player_choice);
+        
+        switch (player_choice) {
+        case 1:
+            if (Check_Save(history, "자물쇠 제거\n")) {
+                printf("\n자물쇠는 이미 제거되었다.\n");
+                return;
+            }
+            else if (Check_Save(items, "교무실 열쇠\n")) {
+                printf("\n딱 들어맞는 게 기분이 좋다.\n");
+                printf("자물쇠가 제거되었다.\n");
+                fprintf_Flush(history, "자물쇠 제거\n");
+            }
+            else {
+                printf("\n열쇠가 없으면 자물쇠를 열지 못한다는 사실을 알게 되었다.\n");
+                printf("행정실에서 열쇠를 가져오자.\n");
+            }
+            break;
+        case 2:
+            if (Check_Save(history, "세콤 무력화\n")) {
+                printf("\n세콤은 이미 무력화되었다.\n");
+                return;
+            }
+            else if (Check_Save(items, "EMP 장치\n")) {
+                printf("\n잠깐 스파크 튀는 소리가 나더니 세콤이 꺼졌다.\n");
+                printf("이게 진짜 될 줄이야.\n");
+                printf("세콤이 무력화되었다.\n");
+                fprintf_Flush(history, "세콤 무력화\n");
+            }
+            else {
+                printf("\nEMP 장치가 없다면 관리자 비밀번호를 찍어보는 수밖에 없다.\n");
+                printf("에이, 그건 말도 안 되지.\n");
+                printf("EMP 장치를 조립하는 방법을 찾자.\n");
+            }
+            break;
+        case 3:
+            printf("\n후일을 도모하자.\n");
+            printf("언젠간 꼭 열어 주겠어.\n");
+            break;
+        }
     }
     else {
         printf("드디어 교무실에 도착했다!\n");
@@ -363,7 +466,7 @@ int Floor_One(FILE *history, FILE *items) {
     int player_choice;
     if (Check_Save(history, "방송실 급식 방송\n")) {
         printf("\n걱정했지만 다행히 1층에 남아 있는 좀비는 없는 것 같다.\n");
-        printf("시간이 없다. 빨리 행정실로 가야 한다.\n");
+        printf("시간이 없다.\n");
     }
     else if(Check_Save(history, "교무실 열쇠 필요 확인\n")) {
         printf("\n1층으로 내려가기엔 좀비가 너무 많다.\n");
@@ -377,7 +480,8 @@ int Floor_One(FILE *history, FILE *items) {
     printf("1. 2층으로 올라간다.\n");
     printf("2. 보건실에 들른다.\n");
     printf("3. 행정실에 들른다.\n");
-    printf("4. 건물 구조도를 확인한다.\n");
+    printf("4. 밖으로 나간다.\n");
+    printf("5. 건물 구조도를 확인한다.\n");
     printf("=====================\n");
 
     scanf("%d", &player_choice);
@@ -395,6 +499,9 @@ int Floor_One(FILE *history, FILE *items) {
         return 1;
         break;
     case 4:
+        Escape(history, items);
+        return 1;
+    case 5:
         Show_Map();
     }
   return 1;
@@ -499,7 +606,22 @@ int Floor_Four(FILE *history, FILE *items) {
 int Floor_Five(FILE *history, FILE *items) {
     int player_choice;
 
-    if (Check_Save(history, "방송실 급식 방송\n") && !Check_Save(history, "급식실 혈액 준비\n")) {
+    if (Check_Save(items, "핸드폰\n")) {
+        if (Check_Save(history, "급식실 문 잠금\n")) {
+            printf("\n깜짝 놀랐다.\n");
+            printf("금세 혈액 팩을 해치운 좀비들이 급식실 문을 두드리고 있다.\n");
+            printf("급식실 문을 잠그지 않았다면 큰일날 뻔 했다.\n");
+        }
+        else {
+            printf("\n교무실 밖으로 나오는 순간 급식실에서 뛰쳐나온 좀비들에게 둘러싸였다.\n");
+            printf("아무래도 급식이 부족했나 보다\n");
+            printf("이런, 급식실 문이라도 잠궜ㅇㅡ며ㄴ\n");
+            fprintf_Flush(history, "게임 오버\n");
+            return 5;
+        }
+    }
+
+    else if (Check_Save(history, "방송실 급식 방송\n") && !Check_Save(history, "급식실 혈액 준비\n")) {
         printf("\n급식실에 먹을 게 없자 좀비들이 엄청 화났다.\n");
         printf("아무래도 내가 급식으로 보이는 것 같다.\n");
         printf("도망ㅊ쳐야한ㄷ\n");
@@ -542,6 +664,10 @@ void Player_Action(FILE *history, FILE *items) {
     while(1) {
         if (Check_Save(history, "게임 오버\n")) {
             printf("\nGame Over\n");
+            break;
+        }
+        else if (Check_Save(history, "게임 클리어\n")) {
+            printf("\nGame Clear\n");
             break;
         }
         switch(floor) {
