@@ -8,13 +8,30 @@ int main() {
   FILE *items;
   char savetemp[MAX_LENGTH];
 
-  history = fopen("history.txt", "r+");
-  items = fopen("items.txt", "r+");
-  
-  Prologue();
-  Show_Map();
-  Player_Action(history, items);
-  
+
+  int player_choice;
+
+  printf("대전고 소프트웨어 동아리 C#의 Text Adventure 게임에 오신 것을 환영합니다.\n");
+  printf("1. 이어하기\n");
+  printf("2. 새로 시작하기\n");
+  scanf("%d", &player_choice);
+
+  switch (player_choice) {
+  case 1:
+	  history = fopen("history.txt", "a+");
+	  items = fopen("items.txt", "a+");
+	  Player_Action(history, items);
+	  break;
+  case 2:
+	  remove("history.txt");
+	  remove("items.txt");
+	  history = fopen("history.txt", "a+");
+	  items = fopen("items.txt", "a+");
+	  Prologue();
+	  Show_Map();
+	  Player_Action(history, items);
+  }
+
   fclose(history);
   fclose(items);
   return 0;
