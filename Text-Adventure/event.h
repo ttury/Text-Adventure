@@ -22,7 +22,7 @@ void Prologue() {
   printf("며칠 전 학교에서 핸드폰을 압수당한 당신은\n");
   printf("학교가 비어 있는 상황을 이용해 학교로 잠입한다.\n");
   printf("학교에는 좀비들이 가득하다.\n");
-  printf("당신은 바이러스에 감염되지 않고 핸드폰을 되찾아 무사히 학교를 빠져나가야 한다.\n");
+  printf("당신은 바이러스에 감염되지 않고 교무실에 있는 핸드폰을 되찾아 무사히 학교를 빠져나가야 한다.\n");
 }
 
 void Show_Map() {
@@ -73,9 +73,9 @@ void Nurse_Office(FILE *history, FILE *items) {
   }
   printf("\n물을 마시기 위해 보건실에 들어왔다.\n");
   printf("들어오자 마자 대량의 혈액 팩이 눈에 들어온다.\n");
-  printf("확진자의 치료를 위한 헌혈 켐페인 때 들여온 것 같다.\n");
+  printf("확진자의 치료를 위한 헌혈 켐페인 때 들여온 것 같다.\n\n");
   printf("여차할 때 좀비 유인용으로 사용할 수 있을 것 같지만\n");
-  printf("나중에 뒷감당이 걱정된다.\n");
+  printf("나중에 뒷감당이 걱정된다.\n\n");
   printf("어떻게 할까?");
 
   printf("\n====================\n");
@@ -364,8 +364,14 @@ void Cafeteria(FILE *history, FILE *items) {
 
 void Teacher_Office(FILE *history, FILE *items) {
     int player_choice;
+    
+    if (Check_Save(items, "핸드폰\n")) {
+        printf("급식실 문은 오래 버티지 못한다.\n");
+        printf("생사의 중대한 갈림길에서 교무실은 좋은 선택이 아닌 것 같다.\n");
+        return;
+    }
 
-    if (Check_Save(history, "자물쇠 제거\n") && Check_Save(history, "세콤 무력화\n")) {
+    else if (Check_Save(history, "자물쇠 제거\n") && Check_Save(history, "세콤 무력화\n")) {
         printf("\n세상에, 교무실 문이 열렸다.\n");
         printf("내 핸드폰이 책상 위에 놓여 있다.\n");
         printf("어떻게 할까?\n");
@@ -443,7 +449,7 @@ void Teacher_Office(FILE *history, FILE *items) {
         }
     }
     else {
-        printf("드디어 교무실에 도착했다!\n");
+        printf("\n드디어 교무실에 도착했다!\n");
         printf("그러나 당연히 문이 잠겨 있다는 사실을 당연하지 못하게 알지 못했다.\n");
         printf("다른 교실은 다 열려 있었는데\n");
         printf("역시 교무실의 보안은 삼엄하다.\n\n");
@@ -473,8 +479,11 @@ int Floor_One(FILE *history, FILE *items) {
         printf("행정실에 가기 위해서는 먼저 좀비를 다른 곳으로 옮겨야 한다.\n");
         return 2;
     }
-    printf("\n1층으로 무사히 들어왔다.\n");
-    printf("어떻게 할까?\n");
+    else {
+        printf("\n1층으로 무사히 들어왔다.\n");
+        printf("핸드폰은 5층 교무실에 있을 것이다.\n");
+        printf("어떻게 할까?\n");
+    }
 
     printf("\n====================\n");
     printf("1. 2층으로 올라간다.\n");
