@@ -2,6 +2,7 @@
 #include <string.h>
 
 #define MAX_LENGTH 128
+extern fpos_t move;
 
 void Prologue() {
   printf("\n2020년\n");
@@ -30,15 +31,8 @@ void Show_Map() {
   printf("====================\n");
 }
 
-void ClearReadBuffer()
-{
- while(getchar()!='\n');//입력버퍼를 지우는 함
-}
-
 int Check_Save(FILE *savefile, char *checkdata) {
   char savetemp[MAX_LENGTH];
-  fpos_t move;
-  fgetpos(savefile, &move);
 
   while(fgets(savetemp, MAX_LENGTH, savefile) != NULL) {
     if(!strcmp(savetemp, checkdata)) {
@@ -77,6 +71,7 @@ void Nurse_Office(FILE *history, FILE *items) {
       fprintf(items, "혈액 팩\n");
       printf("혈액 팩을 가지고 보건실에서 나왔다.\n");
       fprintf(history, "보건실 클리어\n");
+      fflush(history);
       break;
     case 2:
       printf("벌점으로 끝나진 않을 듯 싶다.\n");

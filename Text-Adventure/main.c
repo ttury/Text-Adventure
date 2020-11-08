@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include "event.h"
 
-int count = 0;
+fpos_t move = 0;
 
 int main() {
   FILE *history;
