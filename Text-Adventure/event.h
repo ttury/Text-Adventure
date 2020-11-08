@@ -4,6 +4,11 @@
 #define MAX_LENGTH 128
 extern fpos_t move;
 
+void fprintf_Flush(FILE* savefile, char* adddata) {
+    fprintf(savefile, adddata);
+    fflush(savefile);
+}
+
 void Prologue() {
   printf("\n2020년\n");
   printf("covid-19의 출현과 전 세계적 펜데믹 이후\n");
@@ -68,10 +73,9 @@ void Nurse_Office(FILE *history, FILE *items) {
   switch(player_choice) {
     case 1:
       printf("분명히 쓸 곳이 있을 것이다.\n");
-      fprintf(items, "혈액 팩\n");
+      fprintf_Flush(items, "혈액 팩\n");
       printf("혈액 팩을 가지고 보건실에서 나왔다.\n");
-      fprintf(history, "보건실 클리어\n");
-      fflush(history);
+      fprintf_Flush(history, "보건실 클리어\n");
       break;
     case 2:
       printf("벌점으로 끝나진 않을 듯 싶다.\n");
