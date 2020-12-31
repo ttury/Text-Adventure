@@ -14,6 +14,7 @@ void fprintf_Flush(FILE* savefile, char* adddata) {
 }
 
 void Prologue() {
+    printAsciiArt("virus.txt");
     printf("\n2020년\n");
     printf("covid-19의 출현과 전 세계적 펜데믹 이후\n");
     printf("5년이 지난 지금\n");
@@ -206,6 +207,7 @@ void Library(FILE* history, FILE* items) {
     int player_choice;
 
     if (Check_Save(history, "교무실 열쇠 필요 확인\n")) {
+        printAsciiArt("library.txt");
         printf("\n좀비를 어떻게 1층에서 옮길 수 있을까?\n");
         printf("\emp 장치를 어떻게 만들까?\n");
         printf("답은 언제나 책 속에 있다.\n");
@@ -262,6 +264,7 @@ void Computer_Room(FILE* history, FILE* items) {
             printf("\n컴퓨터실에 더 볼일은 없다.\n");
             return;
         }
+        printAsciiArt("computer_room.txt");
         printf("\n화면잠금 때문에 게임은 할 수 없지만\n");
         printf("dev c++와 아두이노는 가능하다.\n");
         printf("어떻게 할까?\n");
@@ -344,6 +347,7 @@ void Cafeteria(FILE* history, FILE* items) {
         }
     }
     else if (Check_Save(history, "교무실 열쇠 필요 확인\n") && Check_Save(items, "혈액 팩\n")) {
+        printAsciiArt("cafeteria.txt");
         printf("\n혈액 팩을 이용하면 급식실로 좀비를 유인할 수 있지 않을까?\n");
         printf("\n====================\n");
         printf("1. 혈액 팩을 배치한다.\n");
@@ -378,6 +382,7 @@ void Teacher_Office(FILE* history, FILE* items) {
     }
 
     else if (Check_Save(history, "자물쇠 제거\n") && Check_Save(history, "세콤 무력화\n")) {
+        printAsciiArt("teacher_office.txt");
         printf("\n세상에, 교무실 문이 열렸다.\n");
         printf("내 핸드폰이 책상 위에 놓여 있다.\n");
         printf("어떻게 할까?\n");
@@ -456,7 +461,7 @@ void Teacher_Office(FILE* history, FILE* items) {
     }
     else {
         printf("\n드디어 교무실에 도착했다!\n");
-        printf("그러나 당연히 문이 잠겨 있다는 사실을 당연하지 못하게 알지 못했다.\n");
+        printf("그러나 당연히 문이 잠겨 있다는 사실을 당연히 알지 못했다.\n");
         printf("다른 교실은 다 열려 있었는데\n");
         printf("역시 교무실의 보안은 삼엄하다.\n\n");
 
@@ -628,6 +633,7 @@ int Floor_Five(FILE* history, FILE* items) {
             printf("급식실 문을 잠그지 않았다면 큰일날 뻔 했다.\n");
         }
         else {
+            printAsciiArt("zombie.txt");
             printf("\n교무실 밖으로 나오는 순간 급식실에서 뛰쳐나온 좀비들에게 둘러싸였다.\n");
             printf("아무래도 급식이 부족했나 보다\n");
             printf("이런, 급식실 문이라도 잠궜ㅇㅡ며ㄴ\n");
@@ -637,6 +643,7 @@ int Floor_Five(FILE* history, FILE* items) {
     }
 
     else if (Check_Save(history, "방송실 급식 방송\n") && !Check_Save(history, "급식실 혈액 준비\n")) {
+        printAsciiArt("zombie.txt");
         printf("\n급식실에 먹을 게 없자 좀비들이 엄청 화났다.\n");
         printf("아무래도 내가 급식으로 보이는 것 같다.\n");
         printf("도망ㅊ쳐야한ㄷ\n");
@@ -678,11 +685,11 @@ void Player_Action(FILE* history, FILE* items) {
     int floor = 1;
     while (1) {
         if (Check_Save(history, "게임 오버\n")) {
-            printf("\nGame Over\n");
+            printAsciiArt("game_over.txt");
             break;
         }
         else if (Check_Save(history, "게임 클리어\n")) {
-            printf("\nGame Clear\n");
+            printAsciiArt("game_clear.txt");
             break;
         }
         switch (floor) {
