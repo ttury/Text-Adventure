@@ -145,6 +145,10 @@
     <Text Include="history.txt" />
     <Text Include="items.txt" />
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="ascii-art.h" />
+    <ClInclude Include="event.h" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
