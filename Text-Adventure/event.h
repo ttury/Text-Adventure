@@ -57,14 +57,14 @@ int Check_Save(FILE* savefile, char* checkdata) {
 void EscapeSchool(FILE* history, FILE* items) {
     if (Check_Save(items, "핸드폰\n")) {
         printf("\n핸드폰을 가지고 무사히 학교를 탈출했다.\n");
-        printf("힘든 때도 있었고 포기하고 싶은 때도 있었지만\n");
+        printf("힘들고 포기하고 싶을 때도 있었지만\n");
         printf("결국 임무를 완수하는 데 성공했다.\n\n");
         printf("크으, 역시 나다.\n");
         fprintf_Flush(history, "게임 클리어\n");
     }
     else {
         printf("\n핸드폰을 가지고 탈출하지 않으면 의미가 없다.\n");
-        printf("핸드폰은 아직도 혼자 춥고 어두운 교무실에서 내가 데리러 오기를 기다리고 있다.\n");
+        printf("핸드폰은 춥고 어두운 교무실에서 나를 기다리고 있다.\n");
     }
 }
 
@@ -123,7 +123,7 @@ void Admin_Office(FILE* history, FILE* items) {
         printf("\n====================\n");
         printf("1. 교무실 열쇠를 가져간다.\n");
         printf("2. 5층 교무실 열쇠를 가져간다.\n");
-        printf("3. 내 핸드폰이 숨겨져 있는 5층 교무실 열쇠를 가져간다.\n");
+        printf("3. 내 핸드폰이 있는 5층 교무실 열쇠를 가져간다.\n");
         printf("=====================\n");
 
         scanf("%d", &player_choice);
@@ -151,7 +151,7 @@ void Admin_Office(FILE* history, FILE* items) {
     }
     else {
         printf("\n행정실 쪽 중앙현관에 좀비가 몇명 돌아다니고 있다.\n");
-        printf("목숨을 걸고서 행정실에 갈 필요는 없을 것 같다.\n");
+        printf("목숨을 걸고 행정실에 갈 필요는 없을 것 같다.\n");
     }
 }
 
@@ -164,12 +164,12 @@ void Broadcast_Room(FILE* history, FILE* items) {
     }
 
     else if (Check_Save(history, "도서관 좀비 정보 확인\n")) {
+        printf("hi\n");
+        printAsciiArt("broadcast_room.txt");
         printf("\n좀비가 감염 전의 기억을 가지고 있다는 것을 고려하자.\n\n");
-        printf("지금 학교에 있는 좀비는 대부분 원래 학생이었다.\n");
-        printf("학생인 이상 급식종 소리에 반응하지 않을리 없다.\n\n");
-        printf("특히나 소리에 민감한 좀비는 급식종 소리가 들리자마자 필사적으로 5층으로 몰려갈 것이다.\n");
+        printf("특히나 소리에 민감한 좀비는 급식종 소리가 들리자마자 5층으로 몰려갈 것이다.\n");
         printf("그 틈을 이용해 1층으로 내려가면 된다.\n\n");
-        printf("크으, 내가 생각했지만 완벽하다.\n\n");
+        printf("내가 생각했지만 완벽하다.\n\n");
 
         printf("어떻게 할까?\n");
 
@@ -250,7 +250,7 @@ void Library(FILE* history, FILE* items) {
     }
     else {
         printf("\n책이나 보고 있을 시간은 없다.\n");
-        printf("게다가 연체 중이라 책을 못 빌린다.\n");
+        printf("게다가 지금은 연체 중이다.\n");
     }
 }
 
@@ -327,11 +327,9 @@ void Cafeteria(FILE* history, FILE* items) {
                 fprintf_Flush(history, "급식실 문 잠금\n");
                 break;
             case 2:
-                printf("\n좀비는 감염 전의 기억을 가지고 있다고 했다.\n");
-                printf("그렇다면 학주 선생님인 척 하는 것이 효과적일지도 모른다.\n");
-                printf("아랫배에 힘을 꽉 주고 소리를 질렀다.\n\n");
-                printf("그러나 전혀 비슷하지 않았다.\n");
-                printf("어그로에 분노한 좀비들이 달려들었다.\n");
+                printf("단전에 힘을 주고 소리를 질렀다.\n\n");
+                printf("좀비가 나를 인식했다.\n");
+                printf("눈앞에 고기가 있는데 느리게 먹을 수는 없다.\n");
                 fprintf_Flush(history, "게임 오버\n");
                 break;
             case 3:
@@ -397,7 +395,7 @@ void Teacher_Office(FILE* history, FILE* items) {
             printf("기쁜 마음으로 교무실을 나왔다.\n");
             break;
         case 2:
-            printf("\n어림도 없지!\n");
+            printf("\n어림도 없지.\n");
             printf("\n인생의 동반자를 되찾았다.\n");
             fprintf_Flush(items, "핸드폰\n");
             printf("기쁜 마음으로 교무실을 나왔다.\n");
@@ -472,7 +470,7 @@ void Teacher_Office(FILE* history, FILE* items) {
         printf("행정실에 가기 위해서는 좀비를 옮겨야 한다.\n\n");
 
         fprintf_Flush(history, "교무실 열쇠 필요 확인\n");
-        printf("뭐, 식은 죽 먹기지\n");
+        printf("식은 죽 먹기지\n");
     }
 }
 
@@ -705,4 +703,89 @@ void Player_Action(FILE* history, FILE* items) {
             break;
         }
     }
+}
+
+
+int Test_AsciiArt() {
+    int developer_choice;
+    while (1) {
+        printf("출력할 아스키 아트를 선택하세요\n");
+        printf("0. 이전 화면\n");
+        printf("1. 보건실\n");
+        printf("2. 행정실\n");
+        printf("3. 방송실\n");
+        printf("4. 도서관\n");
+        printf("5. 컴퓨터실\n");
+        printf("6. 급식실\n");
+        printf("7. 교무실\n");
+        printf("8. 타이틀\n");
+        printf("9. 바이러스\n");
+        printf("10. 좀비\n");
+        printf("11. 게임 오버\n");
+        printf("12. 게임 클리어\n");
+        scanf("%d", &developer_choice);
+        switch (developer_choice) {
+            case 0:
+                return 0;
+            case 1:
+                printAsciiArt("nurse_office.txt");
+                break;
+            case 2:
+                printAsciiArt("admin_office.txt");
+                break;
+            case 3:
+                printAsciiArt("broadcast_room.txt");
+                break;
+            case 4:
+                printAsciiArt("library.txt");
+                break;
+            case 5:
+                printAsciiArt("computer_room.txt");
+                break;
+            case 6:
+                printAsciiArt("cafeteria.txt");
+                break;
+            case 7:
+                printAsciiArt("teacher_office.txt");
+                break;
+            case 8:
+                printAsciiArt("title.txt");
+                break;
+            case 9:
+                printAsciiArt("virus.txt");
+                break;
+            case 10:
+                printAsciiArt("zombie.txt");
+                break;
+            case 11:
+                printAsciiArt("game_clear.txt");
+                break;
+            case 12:
+                printAsciiArt("game_over.txt");
+                break;
+        }
+    }
+    return 0;
+}
+
+int Debug_Mod() {
+    int developer_choice;
+    while (1) {
+        printf("디버그 모드에 진입했습니다.\n");
+        printf("작업을 선택하세요.\n");
+        printf("1. 아스키 아트 테스트\n");
+        printf("2. 디렉토리 위치 출력\n");
+        printf("3. 디버그 모드 나가기\n");
+        scanf("%d", &developer_choice);
+        switch (developer_choice) {
+        case 1:
+            Test_AsciiArt();
+            break;
+        case 2:
+            break;
+        case 3:
+            return 0;
+        }
+    }
+    return 0;
 }

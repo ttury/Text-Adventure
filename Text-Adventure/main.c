@@ -13,6 +13,7 @@ int main() {
 
 	SetConsoleDisplayMode(GetStdHandle(STD_OUTPUT_HANDLE), CONSOLE_FULLSCREEN_MODE, 0);
 
+	printf("test\n");
 	printAsciiArt("title.txt");
 	printf("\n대전고 소프트웨어 동아리 C#의 Text Adventure 게임에 오신 것을 환영합니다.\n\n");
 	printf("=======================\n");
@@ -39,6 +40,10 @@ int main() {
 		break;
 	case 3:
 		printf("\n게임을 종료합니다.\n");
+		return 0;
+		break;
+	case -1:
+		Debug_Mod();
 		return 0;
 		break;
 	}
